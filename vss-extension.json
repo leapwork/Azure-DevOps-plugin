@@ -49,7 +49,7 @@
 	},
     "files": [
       {
-        "path": "TFSIntegration"
+        "path": "AzureDevOpsIntegration"
       },
       {
         "path": "images",
@@ -72,7 +72,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "TFSIntegration"
+                "name": "AzureDevOpsIntegration"
             }
         }
     ]

@@ -379,19 +379,19 @@ namespace TFSIntegrationConsole
 
 
         public static readonly String SCHEDULE_FORMAT = "{0}[{1}]";
-        public static readonly String SCHEDULE_DETECTED = "Schedule {0}[{1}] successfully detected!";
-        public static readonly String SCHEDULE_RUN_SUCCESS = "Schedule {0}[{1}] Launched Successfully!";
+        public static readonly String SCHEDULE_DETECTED = "Schedule {0}[{1}] successfully detected.";
+        public static readonly String SCHEDULE_RUN_SUCCESS = "Schedule {0}[{1}] Launched Successfully.";
 
-        public static readonly String SCHEDULE_TITLE_OR_ID_ARE_NOT_GOT = "Tried to get schedule title or id! Check connection to the controller!";
-        public static readonly String SCHEDULE_RUN_FAILURE = "Failed to run {0}[{1}]!";
-        public static readonly String NO_SUCH_SCHEDULE = "No such schedule! This may occur if try to run schedule that controller does not have. It can be deleted. Or you simply have forgotten to select schedules after changing controller address;";
-        public static readonly String NO_SUCH_SCHEDULE_WAS_FOUND = "Could not find {0}[{1}] schedule! It was likely deleted!";
+        public static readonly String SCHEDULE_TITLE_OR_ID_ARE_NOT_GOT = "Tried to get schedule title or id Check connection to the controller.";
+        public static readonly String SCHEDULE_RUN_FAILURE = "Failed to run {0}[{1}].";
+        public static readonly String NO_SUCH_SCHEDULE = "No such schedule. This may occur if try to run schedule that controller does not have. It can be deleted. Or you simply have forgotten to select schedules after changing controller address;";
+        public static readonly String NO_SUCH_SCHEDULE_WAS_FOUND = "Could not find {0}[{1}] schedule It was likely deleted.";
 
-        public static readonly String NO_SUCH_RUN_WAS_FOUND = "Could not find run {0} of {1} schedule!";
-        public static readonly String NO_SUCH_RUN_ITEM_WAS_FOUND = "Could not find run item {0} of {1} schedule!";
-        public static readonly String NO_SUCH_RUN = "No such run {0} !";
+        public static readonly String NO_SUCH_RUN_WAS_FOUND = "Could not find run {0} of {1} schedule.";
+        public static readonly String NO_SUCH_RUN_ITEM_WAS_FOUND = "Could not find run item {0} of {1} schedule.";
+        public static readonly String NO_SUCH_RUN = "No such run {0}.";
 
-        public static readonly String REPORT_FILE_NOT_FOUND = "Couldn't find report file! Wrong path! Press \"help\" button nearby \"report\" textbox! ";
+        public static readonly String REPORT_FILE_NOT_FOUND = "Couldn't find report file. Wrong path, Press \"help\" button nearby \"report\" textbox. ";
         public static readonly String REPORT_FILE_CREATION_FAILURE = "Failed to create a report file!";
 
         public static readonly String CASE_CONSOLE_LOG_SEPARATOR = "----------------------------------------------------------------------------------------";
@@ -411,34 +411,34 @@ namespace TFSIntegrationConsole
         public static readonly String INVALID_SCHEDULES = "INVALID SCHEDULES";
         public static readonly String PLUGIN_NAME = "Leapwork Integration";
 
-        public static readonly String NO_SCHEDULES = "No Schedules to run! All schedules you've selected could be deleted. Or you simply have forgotten to select schedules after changing controller address;";
+        public static readonly String NO_SCHEDULES = "No Schedules to run. All schedules you've selected could be deleted. Or you simply have forgotten to select schedules after changing controller address;";
 
-        public static readonly String PLUGIN_SUCCESSFUL_FINISH = "Leapwork for TFS  plugin  successfully finished!";
-        public static readonly String PLUGIN_ERROR_FINISH = "Leapwork for TFS plugin finished with errors!";
+        public static readonly String PLUGIN_SUCCESSFUL_FINISH = "Leapwork for Azure DevOps  plugin  successfully finished!";
+        public static readonly String PLUGIN_ERROR_FINISH = "Leapwork for Azure DevOps plugin finished with errors!";
 
-        public static readonly String CONTROLLER_RESPONDED_WITH_ERRORS = "Controller responded with errors! Please check controller logs and try again! If does not help, try to restart controller.";
-        public static readonly String PLEASE_CONTACT_SUPPORT = "If nothing helps, please contact support https://leapwork.com/chat and provide the next information:  \n1.Plugin Logs  \n2.Leapwork and plugin version  \n3.Controller logs from the moment you've run the plugin.  \n4.Assets without videos if possible.  \nYou can find them {Path to Leaptest}/LEAPTEST/Assets  \nThank you";
+        public static readonly String CONTROLLER_RESPONDED_WITH_ERRORS = "Controller responded with errors. Please check controller logs and try again. If does not help, try to restart controller.";
+        public static readonly String PLEASE_CONTACT_SUPPORT = "If nothing helps, please contact support https://Leapwork.com/chat and provide the next information:  \n1.Plugin Logs  \n2.Leapwork and plugin version  \n3.Controller logs from the moment you've run the plugin.  \n4.Assets without videos if possible.  \nYou can find them {Path to Leapwork}/Leapwork/Assets  \nThank you";
 
         public static readonly String ERROR_CODE_MESSAGE = "Code: {0} Status: {1}!";
-        public static readonly String COULD_NOT_CONNECT_TO = "Could not connect to {0}! Check it and try again! ";
-        public static readonly String COULD_NOT_CONNECT_TO_BUT_WAIT = "Could not connect to {0}! Check connection! The plugin is waiting for connection reestablishment! ";
-        public static readonly String CONNECTION_LOST = "Connection to controller is lost: {0}! Check connection! The plugin is waiting for connection reestablishment!";
-        public static readonly String INTERRUPTED_EXCEPTION = "Interrupted exception: {0}!";
+        public static readonly String COULD_NOT_CONNECT_TO = "Could not connect to {0}! Check it and try again. ";
+        public static readonly String COULD_NOT_CONNECT_TO_BUT_WAIT = "Could not connect to {0}. Check connection, The plugin is waiting for connection reestablishment. ";
+        public static readonly String CONNECTION_LOST = "Connection to controller is lost: {0}. Check connection, The plugin is waiting for connection reestablishment.";
+        public static readonly String INTERRUPTED_EXCEPTION = "Interrupted exception: {0}";
 
 
-        public static readonly String STOPPING_RUN = "Stopping schedule {0} run {1}!";
+        public static readonly String STOPPING_RUN = "Stopping schedule {0} run {1}.";
 
-        public static readonly String STOP_RUN_FAIL = "Failed to stop schedule {0} run {1}!";
+        public static readonly String STOP_RUN_FAIL = "Failed to stop schedule {0} run {1}.";
 
-        public static readonly String INVALID_ACCESS_KEY = "Invalid or empty access key!";
+        public static readonly String INVALID_ACCESS_KEY = "Invalid or empty access key.";
 
-        public static readonly String DATABASE_NOT_RESPONDING = "Data base is not responding!";
+        public static readonly String DATABASE_NOT_RESPONDING = "Data base is not responding.";
 
-        public static readonly String INVALID_VARIABLE_KEY_NAME = "Variable name is invalid or variable with such name is already in request!";
+        public static readonly String INVALID_VARIABLE_KEY_NAME = "Variable name is invalid or variable with such name is already in request.";
 
-        public static readonly String NO_DISK_SPACE = "No enough disk space to start schedule!";
+        public static readonly String NO_DISK_SPACE = "No enough disk space to start schedule.";
 
-        public static readonly String PORT_NUMBER_IS_INVALID = "Port number is invalid, setting to default {0}";
+        public static readonly String PORT_NUMBER_IS_INVALID = "Port number is invalid, setting to default {0}.".;
 
         public static readonly String TIME_DELAY_NUMBER_IS_INVALID = "Time delay number is invalid, setting to default {0}";
 
@@ -455,17 +455,17 @@ namespace TFSIntegrationConsole
         public static readonly String FAILED_TO_PARSE_STRING_TO_GUID = "Failed to parse token {0} {1} to guid value";
         public static readonly String STRING_TOKEN_NOT_FOUND = "Failed to find string token {0}";
 
-        public static readonly String INPUT_VALUES_MESSAGE = "LEAPWORK Plugin input parameters:";
-        public static readonly String INPUT_HOSTNAME_VALUE = "LEAPWORK controller hostname: {0}";
-        public static readonly String INPUT_PORT_VALUE = "LEAPWORK controller port: {0}";
-        public static readonly String INPUT_ACCESS_KEY_VALUE = "LEAPWORK controller Access Key: {0}";
+        public static readonly String INPUT_VALUES_MESSAGE = "Leapwork Plugin input parameters:";
+        public static readonly String INPUT_HOSTNAME_VALUE = "Leapwork controller hostname: {0}";
+        public static readonly String INPUT_PORT_VALUE = "Leapwork controller port: {0}";
+        public static readonly String INPUT_ACCESS_KEY_VALUE = "Leapwork controller Access Key: {0}";
         public static readonly String INPUT_REPORT_VALUE = "JUnit report file name: {0}";
         public static readonly String INPUT_LOG_FILEPATH_VALUE = "Log file path: {0}";
         public static readonly String INPUT_SCHEDULE_NAMES_VALUE = "Schedule names: {0}";
         public static readonly String INPUT_SCHEDULE_IDS_VALUE = "Schedule ids: {0}";
         public static readonly String INPUT_DELAY_VALUE = "Delay between status checks: {0}";
         public static readonly String INPUT_DONE_VALUE = "Done Status As: {0}";
-        public static readonly String INPUT_LEAPWORK_CONTROLLER_URL = "LEAPWORK Controller URL: {0}";
+        public static readonly String INPUT_LEAPWORK_CONTROLLER_URL = "Leapwork Controller URL: {0}";
 
         public static readonly String SCHEDULE_TITLE = "Schedule: {0}";
         public static readonly String CASES_PASSED = "Passed testcases: {0}";

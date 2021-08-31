@@ -49,7 +49,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace TFSIntegrationConsole
+namespace AzureDevopsIntegrationConsole
 {
 
     public class SimpleLogger
@@ -432,7 +432,7 @@ namespace TFSIntegrationConsole
 
         public static readonly String INVALID_ACCESS_KEY = "Invalid or empty access key.";
 
-        public static readonly String DATABASE_NOT_RESPONDING = "Data base is not responding.";
+        public static readonly String DATABASE_NOT_RESPONDING = "Database is not responding.";
 
         public static readonly String INVALID_VARIABLE_KEY_NAME = "Variable name is invalid or variable with such name is already in request.";
 

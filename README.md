@@ -5,10 +5,10 @@ Easily include Leapwork as part of your AzureDevops pipeline using Leapwork Azur
 Leapwork’s completely visual, no-code automation platform makes it easy for business and IT users to automate repetitive processes, so enterprises can adopt and scale automation faster. For rapid results, at lower cost, and requiring fewer specialist resources than traditional automation approaches. 
 
 # Features:
-•	Setup and test Leapwork connection in few clicks
-•	Run automation flows in your Azure Devops pipeline
-•	Automatically receive results
-•	Build status based results
+•	Setup and test Leapwork connection in few clicks \n
+•	Run automation flows in your Azure Devops pipeline \n
+•	Automatically receive results \n
+•	Build status based results \n
 
 # A couple of requirements
 There are just a few requirements to ensure seamless integration:  

@@ -6,8 +6,11 @@ Leapwork’s completely visual, no-code automation platform makes it easy for bu
 
 # Features:
 •	Setup and test Leapwork connection in few clicks
+
 •	Run automation flows in your Azure DevOps pipeline
+
 •	Automatically receive results
+
 •	Build status-based results
 
 # A couple of requirements
@@ -48,3 +51,8 @@ Azure DevOps: Add a task " Publish Test Results " to the previously added agent 
 
 # Troubleshooting
 - If you catch an error "No such run [runId]!" after schedule starting, increase time delay parameter.
+
+# Screenshots
+![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin\screen1.png)
+![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin\screen2.png)
+![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin\screen3.png)

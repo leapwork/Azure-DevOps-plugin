@@ -53,6 +53,6 @@ Azure DevOps: Add a task " Publish Test Results " to the previously added agent 
 - If you catch an error "No such run [runId]!" after schedule starting, increase time delay parameter.
 
 # Screenshots
-![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin\screen1.png)
-![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin\screen2.png)
-![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin\screen3.png)
+![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin/blob/main/images/screen1.png)
+![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin/blob/main/images/screen2.png)
+![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin/blob/main/images/screen3.png)

@@ -1,5 +1,5 @@
 # Leapwork Integration  
-Easily include Leapwork as part of your AzureDevops pipeline using Leapwork Azure devops extension
+Easily include Leapwork as part of your Azure DevOps pipeline using Leapwork Azure DevOps extension
 
 # More Details 
 Leapwork’s completely visual, no-code automation platform makes it easy for business and IT users to automate repetitive processes, so enterprises can adopt and scale automation faster. For rapid results, at lower cost, and requiring fewer specialist resources than traditional automation approaches. 
@@ -32,8 +32,8 @@ Alternatively, you can install it using gallery extension manager. Here is a sma
 7.	Now you are ready to get started!
 
 # Instructions
-1.	 Azure Devops: Add build step "Leapwork" to your build definition.   
-Azure DevOps: Add an agent phase and then add task "Leapwork" to this agent phase.  
+1.	Azure DevOps: Add build step "Leapwork" to your build definition.   
+	Azure DevOps: Add an agent phase and then add task "Leapwork" to this agent phase.  
 2.	Enter Leapwork controller hostname or IP-address. 
 3.  Enter your Leapwork controller API port, by default it is 9001.  
 4.  Enter your API access key. You can find it in Leapwork controller Settings section.  
@@ -42,8 +42,8 @@ Azure DevOps: Add an agent phase and then add task "Leapwork" to this agent phas
 7.	Enter JUnit report file name. The default name is "report.xml".  
 8.	Enter schedule titles you want to run, each one must be entered from a new line.  
 9.	Enter schedule ids, each one must be entered from a new line. Using id is preferable, because schedule title can be changed.  
-10.	Azure Devops: Add Test build step "Publish Test Results" to your build definition.  
-Azure DevOps: Add a task " Publish Test Results " to the previously added agent phase.  
+10.	Azure DevOps: Add Test build step "Publish Test Results" to your build definition.  
+	Azure DevOps: Add a task " Publish Test Results " to the previously added agent phase.  
 11.	Choose JUnit report format. Enter JUnit report file name. It MUST be the same you've entered in point 5. 
 12.	Run your schedule and get results. Enjoy! 
 13.	Check build results in a detailed report, which can be found in Build summary  

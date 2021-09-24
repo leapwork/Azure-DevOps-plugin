@@ -3,7 +3,7 @@
     "id": "leapwork",
     "name": "Leapwork",
     "version": "4.0.1",
-    "publisher": "Leapwork",
+    "publisher": "leapwork",
     "description": "Run Leapwork schedules and get results in JUnit format",
     "public": true,
     "icons": {

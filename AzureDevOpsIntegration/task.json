@@ -1,5 +1,5 @@
 {
-  "id": "4d073640-a475-11e5-a7e5-850fa74c7a56",
+  "id": "4c073640-c575-11e5-a7e5-850fa74c7a56",
   "name": "Leapwork",
   "friendlyName": "Leapwork",
   "description": "Run Leapwork schedules",
@@ -79,7 +79,7 @@
       "label": "Schedule Titles",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Enter here Leapwork Schedule Titles. Each title must be entered from a new line",
+      "helpMarkDown": "Enter here leapwork Schedule Titles. Each title must be entered from a new line",
       "properties": {
         "resizable": "true",
         "rows": "10",
@@ -91,7 +91,7 @@
       "type": "multiLine",
       "label": "Schedule Ids",
       "required": false,
-      "helpMarkDown": "Enter here Leapwork Schedule Ids(optional). Every id must be entered from a new line. Using id is more reliable, because schedule title can be changed",
+      "helpMarkDown": "Enter here leapwork Schedule Ids(optional). Every id must be entered from a new line. Using id is more reliable, because schedule title can be changed",
       "properties": {
         "resizable": "true",
         "rows": "10",

@@ -458,6 +458,7 @@ namespace AzureDevOpsIntegrationConsole
     public static readonly String INPUT_HOSTNAME_VALUE = "LEAPWORK controller hostname: {0}";
     public static readonly String INPUT_PORT_VALUE = "LEAPWORK controller port: {0}";
     public static readonly String INPUT_ACCESS_KEY_VALUE = "LEAPWORK controller Access Key: {0}";
+	public static readonly String INPUT_SCHEDULEID_REQ = "Please provide schedule id for: {0}";
     public static readonly String INPUT_REPORT_VALUE = "JUnit report file name: {0}";
     public static readonly String INPUT_LOG_FILEPATH_VALUE = "Log file path: {0}";
     public static readonly String INPUT_SCHEDULE_NAMES_VALUE = "Schedule names: {0}";
@@ -702,7 +703,14 @@ namespace AzureDevOpsIntegrationConsole
                 string responseContent = await content.ReadAsStringAsync();
 
                 JArray jsonScheduleList = JArray.Parse(responseContent);
-
+				List<string> tempList = new List<string>();
+				
+				foreach(string item in rawScheduleList){
+					tempList.Add(item);
+				}
+				rawScheduleList.Sort();
+				rawScheduleList.Reverse();
+								
                 foreach (String rawSchedule in rawScheduleList)
                 {
                   bool isSuccessfullyMapped = false;
@@ -717,6 +725,11 @@ namespace AzureDevOpsIntegrationConsole
                     {
                       if (!schedulesIdTitleDictionary.ContainsValue(Title)) //Avoid repeat
                       {
+						if (tempList.Contains(rawSchedule)){
+						
+						tempList.Remove(rawSchedule);
+						
+						tempList.Remove(Title);
                         if (isEnabled)
                         {
                           schedulesIdTitleDictionary.Add(Id, Title);
@@ -726,23 +739,34 @@ namespace AzureDevOpsIntegrationConsole
                         {
                           invalidSchedules.Add(new InvalidSchedule(rawSchedule, String.Format(Messages.SCHEDULE_DISABLED, Title, Id)));
                         }
-                      }
+                      }}
                       isSuccessfullyMapped = true;
                     }
 
                     if (Title.Equals(rawSchedule)) //Title match 
                     {
                       if (!schedulesIdTitleDictionary.ContainsKey(Id)) //Avoid repeat
-                      {
+                      {if(tempList.Contains(rawSchedule)){
+						if(tempList.Contains(Id.ToString())){
+						tempList.Remove(Id.ToString());
                         if (isEnabled)
                         {
-                        invalidSchedules.Add(new InvalidSchedule(rawSchedule, string.Format(Messages.IDENTICAL_SCHEDULES, Title)));
+                        schedulesIdTitleDictionary.Add(Id, Title);
+                        logger.Info(String.Format(Messages.SCHEDULE_DETECTED, Title, rawSchedule));
                         }
                         else
                         {
                           invalidSchedules.Add(new InvalidSchedule(rawSchedule, string.Format(Messages.SCHEDULE_DISABLED, Title, Id)));
                         }
                       }
+					  else {
+							logger.Info(String.Format(Messages.INPUT_SCHEDULEID_REQ, Title));
+							invalidSchedules.Add(new InvalidSchedule(rawSchedule, string.Format(Messages.INPUT_SCHEDULEID_REQ, Title)));
+						}
+					  }
+
+						
+					  }
                       isSuccessfullyMapped = true;
                     }
                   }

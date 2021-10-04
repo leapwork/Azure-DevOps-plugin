@@ -1,5 +1,5 @@
 {
-  "id": "4c073640-c575-11e5-a7e5-850fa74c7a56",
+  "id": "23f7f2ca-7a36-4b45-8849-3d9f502c8c56",
   "name": "Leapwork",
   "friendlyName": "Leapwork",
   "description": "Run Leapwork schedules",
@@ -74,12 +74,12 @@
       "helpMarkDown": "JUnit report file. The same name and path must be entered to the JUnit report publisher"
     },
     {
-      "name": "leapworkSchedules",
+      "name": "leapworkSchids",
       "type": "multiLine",
-      "label": "Schedule Titles",
-      "defaultValue": "",
+      "label": "Schedule Ids",
+	  "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Enter here leapwork Schedule Titles. Each title must be entered from a new line",
+      "helpMarkDown": "Enter here leapwork Schedule Ids. Every id must be entered from a new line. Using id is more reliable, because schedule title can be changed",
       "properties": {
         "resizable": "true",
         "rows": "10",
@@ -87,11 +87,12 @@
       }
     },
     {
-      "name": "leapworkSchids",
+      "name": "leapworkSchedules",
       "type": "multiLine",
-      "label": "Schedule Ids",
-      "required": false,
-      "helpMarkDown": "Enter here leapwork Schedule Ids(optional). Every id must be entered from a new line. Using id is more reliable, because schedule title can be changed",
+      "label": "Schedule Titles",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Enter here leapwork Schedule Titles. Each title must be entered from a new line",
       "properties": {
         "resizable": "true",
         "rows": "10",

@@ -703,10 +703,10 @@ namespace AzureDevOpsIntegrationConsole
                 string responseContent = await content.ReadAsStringAsync();
 
                 JArray jsonScheduleList = JArray.Parse(responseContent);
-				List<string> tempList = new List<string>();
+				List<string> tempRawScheduleList = new List<string>();
 				
 				foreach(string item in rawScheduleList){
-					tempList.Add(item);
+					tempRawScheduleList.Add(item);
 				}
 				rawScheduleList.Sort();
 				rawScheduleList.Reverse();
@@ -725,11 +725,11 @@ namespace AzureDevOpsIntegrationConsole
                     {
                       if (!schedulesIdTitleDictionary.ContainsValue(Title)) //Avoid repeat
                       {
-						if (tempList.Contains(rawSchedule)){
+						if (tempRawScheduleList.Contains(rawSchedule)){
 						
-						tempList.Remove(rawSchedule);
+						tempRawScheduleList.Remove(rawSchedule);
 						
-						tempList.Remove(Title);
+						tempRawScheduleList.Remove(Title);
                         if (isEnabled)
                         {
                           schedulesIdTitleDictionary.Add(Id, Title);
@@ -746,9 +746,9 @@ namespace AzureDevOpsIntegrationConsole
                     if (Title.Equals(rawSchedule)) //Title match 
                     {
                       if (!schedulesIdTitleDictionary.ContainsKey(Id)) //Avoid repeat
-                      {if(tempList.Contains(rawSchedule)){
-						if(tempList.Contains(Id.ToString())){
-						tempList.Remove(Id.ToString());
+                      {if(tempRawScheduleList.Contains(rawSchedule)){
+						if(tempRawScheduleList.Contains(Id.ToString())){
+						tempRawScheduleList.Remove(Id.ToString());
                         if (isEnabled)
                         {
                         schedulesIdTitleDictionary.Add(Id, Title);

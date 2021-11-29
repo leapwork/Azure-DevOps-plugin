@@ -416,7 +416,7 @@ namespace AzureDevOpsIntegrationConsole
     public static readonly String PLUGIN_ERROR_FINISH = "Leapwork for AzureDevOps plugin finished with errors.";
 
     public static readonly String CONTROLLER_RESPONDED_WITH_ERRORS = "Controller responded with errors. Please check controller logs and try again. If does not help, try to restart controller.";
-    public static readonly String PLEASE_CONTACT_SUPPORT = "If nothing helps, please contact support https://leapwork.com/chat and provide the next information: \n1.Plugin Logs \n2.Leapwork and plugin version \n3.Controller logs from the moment you've run the plugin. \n4.Assets without videos if possible. \nYou can find them {Path to Leaptest}/LEAPTEST/Assets \nThank you";
+    public static readonly String PLEASE_CONTACT_SUPPORT = "If nothing helps, please contact support https://leapwork.com/chat and provide the next information: \n1.Plugin Logs \n2.Leapwork and plugin version \n3.Controller logs from the moment you've run the plugin. \n4.Assets without videos if possible. \nYou can find them {Path to Leapwork}/Leapwork/Assets \nThank you";
 
     public static readonly String ERROR_CODE_MESSAGE = "Code: {0} Status: {1}.";
     public static readonly String COULD_NOT_CONNECT_TO = "Could not connect to {0}. Check it and try again. ";

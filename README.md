@@ -20,8 +20,8 @@ There are just a few requirements to ensure seamless integration:
 3.	Agent version 1.83.0 minimum required.
 
 # Installing
-You are just one click away from seamless automation! Simply install the extension from Visual Studio Marketplace.  
-If you have already installed previous version, delete it first!  
+You are just one click away from seamless automation. Simply install the extension from Visual Studio Marketplace.  
+If you have already installed previous version, delete it first/  
 Alternatively, you can install it using gallery extension manager. Here is a small guide for you:
 1.	Open extensions manager {hostname}:port/_gallery/manage 
 2.	Click "Upload new extension" button
@@ -29,7 +29,7 @@ Alternatively, you can install it using gallery extension manager. Here is a sma
 4.	Install extension
 5.	Choose Collection
 6.	Click Confirm button
-7.	Now you are ready to get started!
+7.	Now you are ready to get started/
 
 # Instructions
 1.	Azure DevOps: Add build step "Leapwork" to your build definition.   

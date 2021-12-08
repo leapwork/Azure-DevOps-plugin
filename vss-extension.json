@@ -1,0 +1,79 @@
+{
+    "manifestVersion": 1,
+    "id": "leapwork",
+    "name": "Leapwork",
+    "version": "4.0.1",
+    "publisher": "leapwork",
+    "description": "Run Leapwork schedules and get results in JUnit format",
+    "public": true,
+    "icons": {
+        "default": "images/128x128.png",
+        "large": "images/1024x1024.png"
+    },
+    "screenshots": [
+    	{
+      		"path": "images/screen1.png"
+    	},
+    	{
+      		"path": "images/screen2.png"
+    	},
+    	{
+      		"path": "images/screen3.png"
+    	}
+    ],
+    "categories": [
+        "Build and release"
+    ],
+    "tags": [		
+        "test",
+        "tasks"
+    ],
+	"content": {
+        "details": {
+            "path": "README.md"
+        },
+        "license": {
+            "path": "license.md"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/leapwork/Azure-DevOps-plugin/blob/master/README.md"
+        },
+        "issues": {
+            "uri": "https://github.com/leapwork/Azure-DevOps-plugin/issues"
+        },
+        "repository": {
+            "uri": "https://github.com/leapwork/Azure-DevOps-plugin"
+        }
+	},
+    "files": [
+      {
+        "path": "AzureDevOpsIntegration"
+      },
+      {
+        "path": "images",
+        "addressable": true
+      }
+    ],
+    "scopes": [
+        "vso.build_execute"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "task-leapwork",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "AzureDevOpsIntegration"
+            }
+        }
+    ]
+}

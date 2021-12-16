@@ -1007,14 +1007,14 @@ namespace AzureDevOpsIntegrationConsole
                 DefaultTokenStringValueIfNull("Status", jsonFlowInfo, logger, "NoStatus");
 
               //AgentInfo
-              JToken jsonEnvironmentInfo = jsonRunItem.SelectToken("AgentInfo");
+              JToken jsonAgentInfo = jsonRunItem.SelectToken("AgentInfo");
 
-              Guid environmentId =
-                DefaultTokenGuidValueIfNull("AgentId", jsonEnvironmentInfo, logger);
-              String environmentTitle =
-                DefaultTokenStringValueIfNull("AgentTitle", jsonEnvironmentInfo, logger);
-              String environmentConnectionType = DefaultTokenStringValueIfNull("ConnectionType",
-                jsonEnvironmentInfo, logger, "Not defined");
+              Guid agentId =
+                DefaultTokenGuidValueIfNull("AgentId", jsonAgentInfo, logger);
+              String agentTitle =
+                DefaultTokenStringValueIfNull("AgentTitle", jsonAgentInfo, logger);
+              String agentConnectionType = DefaultTokenStringValueIfNull("ConnectionType",
+                jsonAgentInfo, logger, "Not defined");
               Guid runId = DefaultTokenGuidValueIfNull("RunId", jsonRunItem, logger);
 
               String elapsed = DefaultElapsedIfNull(jsonRunItem.SelectToken("Elapsed"));
@@ -1033,7 +1033,7 @@ namespace AzureDevOpsIntegrationConsole
               {
 
                 Failure keyFrames = GetRunItemKeyframes(client, controllerApiHttpAddress, runItemId,
-                  runItem, scheduleName, environmentTitle, logger).Result;
+                  runItem, scheduleName, agentTitle, logger).Result;
 
                 runItem.failure = keyFrames;
               }
@@ -1075,7 +1075,7 @@ namespace AzureDevOpsIntegrationConsole
     }
 
     private static async Task<Failure> GetRunItemKeyframes(HttpClient client, string controllerApiHttpAddress, Guid runItemId,
-      RunItem runItem, string scheduleName, string environmentTitle, SimpleLogger logger)
+      RunItem runItem, string scheduleName, string agentTitle, SimpleLogger logger)
     {
       String uri = string.Format(Messages.GET_RUN_ITEM_KEYFRAMES, controllerApiHttpAddress, runItemId);
 
@@ -1128,8 +1128,8 @@ namespace AzureDevOpsIntegrationConsole
 
                 }
 
-                fullKeyframes.AppendLine("Environment: " + environmentTitle);
-                logger.Info("Environment: " + environmentTitle);
+                fullKeyframes.AppendLine("AgentTtile: " + agentTitle);
+                logger.Info("AgentTtile: " + agentTitle);
                 fullKeyframes.AppendLine("Schedule: " + scheduleName);
                 logger.Info("Schedule: " + scheduleName);
 

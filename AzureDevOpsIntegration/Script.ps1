@@ -397,6 +397,7 @@ namespace AzureDevOpsIntegrationConsole
 
     public static readonly String CASE_INFORMATION = "Run Item: {0} | Status: {1} | Elapsed: {2}";
     public static readonly String CASE_STACKTRACE_FORMAT = "{0} - {1}";
+    public static readonly String CASE_STACKTRACE_FORMAT_BLOCKTITLE = "{0} - {1} - {2}";
 
     public static readonly String GET_ALL_AVAILABLE_SCHEDULES_URI = "{0}/api/v4/schedules";
     public static readonly String RUN_SCHEDULE_URI = "{0}/api/v4/schedules/{1}/runNow";
@@ -1106,18 +1107,23 @@ namespace AzureDevOpsIntegrationConsole
                   string level = DefaultTokenStringValueIfNull("Level", jsonKeyFrame, logger, "Trace");
                   if (!string.IsNullOrEmpty(level) && !level.Contains("Trace"))
                   {
+                    String keyFrame = "";
                     JToken token = jsonKeyFrame.SelectToken("Timestamp").SelectToken("Value");
                     var timeStampValue = (DateTime)token.ToObject(typeof(DateTime));
                     string timestamp = timeStampValue.ToString("dd-MM-yyyy hh:mm:ss.fff");
-
                     string logMessage = DefaultTokenStringValueIfNull("LogMessage", jsonKeyFrame, logger);
-
-                    string keyFrame = string.Format(Messages.CASE_STACKTRACE_FORMAT, timestamp, logMessage);
-
+               
+                    JToken block = jsonKeyFrame.SelectToken("BlockTitle");
+                    if (block != null)
+                    {
+                      String blockTitle = block.Value<string>();
+                      keyFrame = string.Format(Messages.CASE_STACKTRACE_FORMAT_BLOCKTITLE, timestamp, blockTitle, logMessage);
+                    }
+                    else{
+                      keyFrame = string.Format(Messages.CASE_STACKTRACE_FORMAT, timestamp, logMessage);
+                      }
                     logger.Info(keyFrame);
-
                     fullKeyframes.AppendLine(keyFrame);
-
                   }
 
                 }

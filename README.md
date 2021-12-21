@@ -29,7 +29,7 @@ Alternatively, you can install it using gallery extension manager. Here is a sma
 4.	Install extension
 5.	Choose Collection
 6.	Click Confirm button
-7.	Now you are ready to get started/
+7.	Now you are ready to get started
 
 # Instructions
 1.	Azure DevOps: Add build step "Leapwork" to your build definition.   
@@ -55,4 +55,3 @@ Alternatively, you can install it using gallery extension manager. Here is a sma
 # Screenshots
 ![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin/blob/main/images/screen1.png)
 ![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin/blob/main/images/screen2.png)
-![ScreenShot](https://github.com/leapwork/Azure-DevOps-plugin/blob/main/images/screen3.png)

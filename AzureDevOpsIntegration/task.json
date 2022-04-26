@@ -16,7 +16,7 @@
   "version": {
     "Major": "4",
     "Minor": "0",
-    "Patch": "1"
+    "Patch": "2"
   },
   "minimumAgentVersion": "1.83.0",
   "instanceNameFormat": "Run Leapwork schedules and get results in JUnit format",
@@ -80,19 +80,6 @@
 	  "defaultValue": "",
       "required": true,
       "helpMarkDown": "Enter here leapwork Schedule Ids. Every id must be entered from a new line. Using id is more reliable, because schedule title can be changed",
-      "properties": {
-        "resizable": "true",
-        "rows": "10",
-        "maxLength": "500"
-      }
-    },
-    {
-      "name": "leapworkSchedules",
-      "type": "multiLine",
-      "label": "Schedule Titles",
-      "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "Enter here leapwork Schedule Titles. Each title must be entered from a new line",
       "properties": {
         "resizable": "true",
         "rows": "10",

@@ -4,8 +4,8 @@ $leapworkAccessKey = Get-VstsInput -Name leapworkAccessKey -Require
 $leapworkTimeDelay = Get-VstsInput -Name leapworkTimeDelay
 $leapworkDoneStatusAs = Get-VstsInput -Name leapworkDoneStatusAs -Require
 $leapworkReport = Get-VstsInput -Name leapworkReport -Require
-$leapworkSchids = Get-VstsInput -Name leapworkSchids
-$leapworkSchedules = Get-VstsInput -Name leapworkSchedules -Require
+$leapworkSchids = Get-VstsInput -Name leapworkSchids -Require
+$leapworkSchedules = Get-VstsInput -Name leapworkSchedules 
 
 function Get-NewtonsoftJsonAssembly
 {  
@@ -408,8 +408,9 @@ namespace AzureDevOpsIntegrationConsole
     public static readonly String GET_RUN_ITEM_KEYFRAMES = "{0}/api/v4/runItems/{1}/keyframes";
 
     public static readonly String INVALID_SCHEDULES = "INVALID SCHEDULES";
-	public static readonly String IDENTICAL_SCHEDULES = "SCHEDULES with name {0} is not unique, Please specify unique name or use schedule Id";
-	public static readonly String PLUGIN_NAME = "Leapwork Integration";
+	  public static readonly String SCHEDULE_ALREADY_RUNNING = "Could not run schedule - {0}, as it is already in execution state.";
+    public static readonly String IDENTICAL_SCHEDULES = "SCHEDULES with name {0} is not unique, Please specify unique name or use schedule Id";
+	  public static readonly String PLUGIN_NAME = "Leapwork Integration";
 
     public static readonly String NO_SCHEDULES = "No Schedules to run. All schedules you've selected could be deleted. Or you simply have forgotten to select schedules after changing controller address;";
 
@@ -561,8 +562,7 @@ namespace AzureDevOpsIntegrationConsole
 
       Regex regex = new Regex("\n|, |,");
 
-      if (!string.IsNullOrEmpty(rawScheduleIds))
-      {
+      if (!string.IsNullOrEmpty(rawScheduleIds)){
         string[] schidsArray = regex.Split(rawScheduleIds);
         for (int i = 0; i < schidsArray.Length; i++)
         {
@@ -571,8 +571,7 @@ namespace AzureDevOpsIntegrationConsole
         }
       }
 
-      if (!string.IsNullOrEmpty(rawScheduleTitles))
-      {
+      else if(!string.IsNullOrEmpty(rawScheduleTitles)){
         string[] testsArray = regex.Split(rawScheduleTitles);
 
         for (int i = 0; i < testsArray.Length; i++)
@@ -864,6 +863,12 @@ namespace AzureDevOpsIntegrationConsole
               StringBuilder errorMessage404 = new StringBuilder(String.Format(Messages.ERROR_CODE_MESSAGE, statusCode, status));
               errorMessage404.AppendLine(string.Format(Messages.NO_SUCH_SCHEDULE_WAS_FOUND, scheduleTitle, scheduleId));
               return OnScheduleRunFailure(errorMessage404, leapworkRun, scheduleId, logger);
+            
+            case 410:
+              StringBuilder errorMessage410 = new StringBuilder(string.Format(Messages.ERROR_CODE_MESSAGE, statusCode, status));
+              errorMessage410.AppendLine(string.Format(Messages.SCHEDULE_ALREADY_RUNNING, scheduleId));
+              logger.Error(errorMessage410.ToString());
+              return OnScheduleRunFailure(errorMessage410, leapworkRun, scheduleId, logger);
 
             case 446:
               StringBuilder errorMessage446 = new StringBuilder(string.Format(Messages.ERROR_CODE_MESSAGE, statusCode, status));

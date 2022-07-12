@@ -225,10 +225,10 @@ namespace AzureDevOpsIntegrationConsole
       Time = 0;
     }
 
-    public LeapworkRun(string runId, string title, string scheduleId)
+    public LeapworkRun(string schId, string title, string scheduleId)
     {
       RunItems = new List<RunItem>();
-      RunId = runId;
+      SchId = schId;
       ScheduleTitle = title;
       Failed = 0;
       Passed = 0;
@@ -239,7 +239,7 @@ namespace AzureDevOpsIntegrationConsole
     public string ScheduleTitle { get; set; }
 
     [XmlAttribute(AttributeName = "schId")]
-    public string RunId { get; set; }
+    public string SchId { get; set; }
 
     [XmlAttribute(AttributeName = "id")]
     public int Id { get; set; }
@@ -1389,7 +1389,7 @@ namespace AzureDevOpsIntegrationConsole
             if (runId != Guid.Empty)
             {
               resultsMap.Add(runId, leapworkRun);
-              leapworkRun.RunId = runId.ToString();
+              leapworkRun.SchId = schId.ToString();
               CollectScheduleRunResults(client, controllerApiHttpAddress, runId, schTitle, timeDelay, isDoneStatusIsSuccess, leapworkRun, logger);
             }
             else
@@ -1534,11 +1534,8 @@ namespace AzureDevOpsIntegrationConsole
 						
             String status = runItem.FlowStatus;
 
-						
-            resultRun.Time += runItem.ElapsedTime;
             switch (status)
-            {
-							
+            {							
               case "NoStatus":
               case "Initializing":
               case "Connecting":
@@ -1548,10 +1545,12 @@ namespace AzureDevOpsIntegrationConsole
                 executedRunItems.RemoveAt(i);
                 break;
               case "Passed":
+                resultRun.Time += runItem.ElapsedTime;
                 resultRun.IncPassed();
                 resultRun.RunItems.Add(runItem);
                 break;
               case "Failed":
+                resultRun.Time += runItem.ElapsedTime;
                 resultRun.IncFailed();
                 resultRun.RunItems.Add(runItem);
                 break;
@@ -1559,14 +1558,17 @@ namespace AzureDevOpsIntegrationConsole
               case "Inconclusive":
               case "Timeout":
               case "Cancelled":
+                resultRun.Time += runItem.ElapsedTime;
                 resultRun.IncErrors();
                 resultRun.RunItems.Add(runItem);
                 break;
               case "Done":
+                resultRun.Time += runItem.ElapsedTime;
                 resultRun.RunItems.Add(runItem);
                 if (isDoneStatusAsSuccess)
                   resultRun.IncPassed();
                 else
+                  resultRun.Time += runItem.ElapsedTime;
                   resultRun.IncFailed();
                 break;
 
@@ -1645,6 +1647,3 @@ else
 }
 
 Write-Output "##vso[build.uploadlog]$logFile"
-
-
-

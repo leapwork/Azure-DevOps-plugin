@@ -1568,7 +1568,6 @@ namespace AzureDevOpsIntegrationConsole
                 if (isDoneStatusAsSuccess)
                   resultRun.IncPassed();
                 else
-                  resultRun.Time += runItem.ElapsedTime;
                   resultRun.IncFailed();
                 break;
 

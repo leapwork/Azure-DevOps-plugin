@@ -1,5 +1,6 @@
 ﻿$leapworkHostname = Get-VstsInput -Name leapworkHostname -Require
 $leapworkPort = Get-VstsInput -Name leapworkPort -Require
+[bool]$leapworkEnableHttpsProtocol = Get-VstsInput -Name leapworkEnableHttpsProtocol -AsBool
 $leapworkAccessKey = Get-VstsInput -Name leapworkAccessKey -Require
 $leapworkTimeDelay = Get-VstsInput -Name leapworkTimeDelay
 $leapworkDoneStatusAs = Get-VstsInput -Name leapworkDoneStatusAs -Require
@@ -459,6 +460,7 @@ namespace AzureDevOpsIntegrationConsole
     public static readonly String INPUT_VALUES_MESSAGE = "LEAPWORK Plugin input parameters:";
     public static readonly String INPUT_HOSTNAME_VALUE = "LEAPWORK controller hostname: {0}";
     public static readonly String INPUT_PORT_VALUE = "LEAPWORK controller port: {0}";
+    public static readonly String INPUT_ENABLE_HTTPS_PROTOCOL_VALUE = "LEAPWORK controller EnableHttpsProtocol: {0}";
     public static readonly String INPUT_ACCESS_KEY_VALUE = "LEAPWORK controller Access Key: {0}";
 	public static readonly String INPUT_SCHEDULEID_REQ = "Please provide schedule id for: {0}";
     public static readonly String INPUT_REPORT_VALUE = "JUnit report file name: {0}";
@@ -603,11 +605,14 @@ namespace AzureDevOpsIntegrationConsole
 
     }
 
-    private static string GetControllerApiHttpAddress(string hostname, string rawPort, SimpleLogger logger)
+    private static string GetControllerApiHttpAddress(string hostname, string rawPort, bool leapworkEnableHttpsProtocol, SimpleLogger logger)
     {
       var stringBuilder = new StringBuilder();
       int port = GetPortNumber(rawPort, logger);
-      stringBuilder.Append("http://").Append(hostname).Append(":").Append(port);
+      if(leapworkEnableHttpsProtocol)
+        stringBuilder.Append("https://").Append(hostname).Append(":").Append(port);
+      else
+        stringBuilder.Append("http://").Append(hostname).Append(":").Append(port);
       return stringBuilder.ToString();
     }
 
@@ -1333,7 +1338,7 @@ namespace AzureDevOpsIntegrationConsole
     }
 
 
-    public static string Call(string leapworkHostname, string leapworkPort, string leapworkAccessKey, string leapworkTime, string leapworkDoneStatus, string leapworkReport, string leapworkLog, string leapworkIds, string leapworkTitles)
+    public static string Call(string leapworkHostname, string leapworkPort, bool leapworkEnableHttpsProtocol, string leapworkAccessKey, string leapworkTime, string leapworkDoneStatus, string leapworkReport, string leapworkLog, string leapworkIds, string leapworkTitles)
     {
 
       SimpleLogger logger = new SimpleLogger(leapworkLog);
@@ -1342,6 +1347,7 @@ namespace AzureDevOpsIntegrationConsole
       logger.Info(string.Format(Messages.CASE_CONSOLE_LOG_SEPARATOR));
       logger.Info(string.Format(Messages.INPUT_HOSTNAME_VALUE, leapworkHostname));
       logger.Info(string.Format(Messages.INPUT_PORT_VALUE, leapworkPort));
+      logger.Info(string.Format(Messages.INPUT_ENABLE_HTTPS_PROTOCOL_VALUE, leapworkEnableHttpsProtocol));
       //logger.Info(string.Format(Messages.INPUT_ACCESS_KEY_VALUE, leapworkAccessKey));
       logger.Info(string.Format(Messages.INPUT_REPORT_VALUE, leapworkReport));
       logger.Info(string.Format(Messages.INPUT_LOG_FILEPATH_VALUE, leapworkLog));
@@ -1349,7 +1355,7 @@ namespace AzureDevOpsIntegrationConsole
       logger.Info(string.Format(Messages.INPUT_SCHEDULE_IDS_VALUE, leapworkIds));
       logger.Info(string.Format(Messages.INPUT_DELAY_VALUE, leapworkTime));
       logger.Info(string.Format(Messages.INPUT_DONE_VALUE, leapworkDoneStatus));
-      string controllerApiHttpAddress = GetControllerApiHttpAddress(leapworkHostname, leapworkPort, logger);
+      string controllerApiHttpAddress = GetControllerApiHttpAddress(leapworkHostname, leapworkPort, leapworkEnableHttpsProtocol, logger);
       logger.Info(String.Format(Messages.INPUT_LEAPWORK_CONTROLLER_URL, controllerApiHttpAddress));
 
       String junitReportPath = GetJunitReportFilePath(leapworkReport); //checks if .xml in the path exists
@@ -1627,7 +1633,7 @@ $logFile = Split-Path -Path $leapworkReport
 $logFile = $logFile, "LeapworkIntegrationAgent$Env:AGENT_ID.Build$Env:BUILD_BUILDID.log" -Join "\"
 
 Add-Type -ReferencedAssemblies $assemblies -TypeDefinition $sourceCode -Language CSharp
-$buildResult = [AzureDevOpsIntegrationConsole.Program]::Call($leapworkHostname,$leapworkPort,$leapworkAccessKey,$leapworkTimeDelay,$leapworkDoneStatusAs,$leapworkReport,$logFile,$leapworkSchids,$leapworkSchedules)
+$buildResult = [AzureDevOpsIntegrationConsole.Program]::Call($leapworkHostname,$leapworkPort,$leapworkEnableHttpsProtocol,$leapworkAccessKey,$leapworkTimeDelay,$leapworkDoneStatusAs,$leapworkReport,$logFile,$leapworkSchids,$leapworkSchedules)
 
 if($buildResult -eq "SUCCEEDED")
 {

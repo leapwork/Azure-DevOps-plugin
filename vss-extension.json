@@ -2,13 +2,13 @@
     "manifestVersion": 1,
     "id": "leapwork",
     "name": "Leapwork",
-    "version": "4.0.4",
+    "version": "4.0.5",
     "publisher": "leapwork",
     "description": "Run Leapwork schedules and get results in JUnit format",
     "public": true,
     "icons": {
-        "default": "images/128x128.png",
-        "large": "images/1024x1024.png"
+        "default": "images/256x256.png",
+        "large": "images/256x256.png"
     },
     "screenshots": [
     	{

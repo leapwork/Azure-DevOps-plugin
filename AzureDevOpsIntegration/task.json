@@ -18,7 +18,7 @@
     "Minor": "0",
     "Patch": "6"
   },
-  "minimumAgentVersion": "1.83.0",
+  "minimumAgentVersion": "2.144.0",
   "instanceNameFormat": "Run Leapwork schedules and get results in JUnit format",
   "inputs": [
     {

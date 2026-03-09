@@ -1,4 +1,4 @@
-﻿$leapworkHostname = Get-VstsInput -Name leapworkHostname -Require
+$leapworkHostname = Get-VstsInput -Name leapworkHostname -Require
 $leapworkPort = Get-VstsInput -Name leapworkPort -Require
 [bool]$leapworkEnableHttpsProtocol = Get-VstsInput -Name leapworkEnableHttpsProtocol -AsBool
 $leapworkAccessKey = Get-VstsInput -Name leapworkAccessKey -Require

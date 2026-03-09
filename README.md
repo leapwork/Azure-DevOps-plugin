@@ -15,7 +15,7 @@ Leapwork’s completely visual, no-code automation platform makes it easy for bu
 
 # A couple of requirements
 There are just a few requirements to ensure seamless integration:  
-1.	.NET framework 4.5  
+1.	.NET framework 4.8  
 2.	Team Foundation Server 2015 Update 1 minimum required.
 3.	Agent version 1.83.0 minimum required.
 

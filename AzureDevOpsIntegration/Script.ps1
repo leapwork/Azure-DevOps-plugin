@@ -10,34 +10,25 @@ $leapworkSchedules = Get-VstsInput -Name leapworkSchedules
 
 function Get-NewtonsoftJsonAssembly
 {
-  return $PSScriptRoot, 'ps_modules', 'Newtonsoft.Json', 'lib','netstandard2.0','Newtonsoft.Json.dll' -Join '\\'
-}
-
-function Get-NetstandardAssembly
-{
-  return $PSScriptRoot, 'ps_modules', 'netstandard', 'netstandard.dll' -Join '\\'
+  return $PSScriptRoot, 'ps_modules', 'Newtonsoft.Json', 'lib','net45','Newtonsoft.Json.dll' -Join '\'
 }
 
 function Get-NetHttpAssembly
 {
-  return $PSScriptRoot, 'ps_modules', 'System.Net.Http', 'lib','net46','System.Net.Http.dll' -Join '\\'
+  return $PSScriptRoot, 'ps_modules', 'System.Net.Http', 'lib','net46','System.Net.Http.dll' -Join '\'
 }
 
 $newtonsoft = Get-NewtonsoftJsonAssembly
-$netstandard = Get-NetstandardAssembly
 $systemNetHttp = Get-NetHttpAssembly
 
 Write-Host "newtonsoft path: $newtonsoft"
-Write-Host "netstandard path: $netstandard"
 Write-Host "systemNetHttp path: $systemNetHttp"
 
-[Reflection.Assembly]::LoadFile($newtonsoft)
-[Reflection.Assembly]::LoadFile($netstandard)
-[Reflection.Assembly]::LoadFile($systemNetHttp)
+[Reflection.Assembly]::LoadFrom($newtonsoft)
+[Reflection.Assembly]::LoadFrom($systemNetHttp)
 
 $assemblies = @()
 $assemblies += $newtonsoft
-$assemblies += $netstandard
 $assemblies += $systemNetHttp
 $assemblies += "System.Runtime, Version=4.0.20.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
 $assemblies += "System.IO, Version=4.0.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"

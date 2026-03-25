@@ -16,8 +16,8 @@ Leapwork’s completely visual, no-code automation platform makes it easy for bu
 # A couple of requirements
 There are just a few requirements to ensure seamless integration:  
 1.	.NET framework 4.8  
-2.	Team Foundation Server 2015 Update 1 minimum required.
-3.	Agent version 1.83.0 minimum required.
+2.	Azure DevOps Server 2019 or later.
+3.	Agent version 2.144.0 or later.
 
 # Installing
 You are just one click away from seamless automation. Simply install the extension from Visual Studio Marketplace.  

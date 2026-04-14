@@ -400,13 +400,13 @@ namespace AzureDevOpsIntegrationConsole
     public static readonly String CASE_STACKTRACE_FORMAT = "{0} - {1}";
     public static readonly String CASE_STACKTRACE_FORMAT_BLOCKTITLE = "{0} - {1} - {2}";
 
-    public static readonly String GET_ALL_AVAILABLE_SCHEDULES_PATH = "api/v4/schedules";
-    public static readonly String RUN_SCHEDULE_PATH = "api/v4/schedules/{0}/runNow";
-    public static readonly String STOP_RUN_PATH = "api/v4/run/{0}/stop";
-    public static readonly String GET_RUN_STATUS_PATH = "api/v4/run/{0}/status";
-    public static readonly String GET_RUN_ITEMS_IDS_PATH = "api/v4/run/{0}/runItemIds";
-    public static readonly String GET_RUN_ITEM_PATH = "api/v4/runItems/{0}";
-    public static readonly String GET_RUN_ITEM_KEYFRAMES_PATH = "api/v4/runItems/{0}/keyframes";
+    public static readonly String GET_ALL_AVAILABLE_SCHEDULES_URI = "api/v4/schedules";
+    public static readonly String RUN_SCHEDULE_URI = "api/v4/schedules/{0}/runNow";
+    public static readonly String STOP_RUN_URI = "api/v4/run/{0}/stop";
+    public static readonly String GET_RUN_STATUS_URI = "api/v4/run/{0}/status";
+    public static readonly String GET_RUN_ITEMS_IDS_URI = "api/v4/run/{0}/runItemIds";
+    public static readonly String GET_RUN_ITEM_URI = "api/v4/runItems/{0}";
+    public static readonly String GET_RUN_ITEM_KEYFRAMES_URI = "api/v4/runItems/{0}/keyframes";
 
     public static readonly String INVALID_SCHEDULES = "INVALID SCHEDULES";
 	  public static readonly String SCHEDULE_ALREADY_RUNNING = "Could not run schedule - {0}, as it is already in execution state.";
@@ -607,39 +607,30 @@ namespace AzureDevOpsIntegrationConsole
     }
 
     private static Uri GetControllerApiBaseUri(string hostnameOrUrl, string rawPort, bool leapworkEnableHttpsProtocol, SimpleLogger logger)
-    {
-      string trimmedInput = NormalizeUrlQuerySeparators((hostnameOrUrl ?? string.Empty).Trim());
-      int port = GetPortNumber(rawPort, logger);
-      string scheme = leapworkEnableHttpsProtocol ? "https" : "http";
-      Uri parsedUri;
-      UriBuilder uriBuilder;
-
-      // Accept either a full URL or a shorthand host/path/query input.
-      if (Uri.TryCreate(trimmedInput, UriKind.Absolute, out parsedUri))
-        uriBuilder = new UriBuilder(parsedUri);
-      else
       {
+        string trimmedInput = NormalizeUrlQuerySeparators((hostnameOrUrl ?? string.Empty).Trim());
+        int port = GetPortNumber(rawPort, logger);
+        string scheme = leapworkEnableHttpsProtocol ? "https" : "http";
         string uriCandidate;
-        if (trimmedInput.Contains("/") || trimmedInput.Contains("?") || trimmedInput.Contains(":"))
+        Uri parsedUri;
+        Uri controllerApiHttpAddress;
+
+        if (trimmedInput.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+            trimmedInput.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+          uriCandidate = trimmedInput;
+        else if (trimmedInput.Contains("/") || trimmedInput.Contains("?"))
           uriCandidate = string.Format("{0}://{1}", scheme, trimmedInput);
         else
           uriCandidate = string.Format("{0}://{1}:{2}", scheme, trimmedInput, port);
 
-        uriBuilder = new UriBuilder(uriCandidate);
-        if (string.IsNullOrWhiteSpace(uriBuilder.Host))
+        if (!Uri.TryCreate(uriCandidate, UriKind.Absolute, out parsedUri) || string.IsNullOrWhiteSpace(parsedUri.Host))
           throw new Exception(Messages.INVALID_CONTROLLER_URL);
+
+        controllerApiHttpAddress = new UriBuilder(parsedUri.Scheme, parsedUri.Host, parsedUri.IsDefaultPort ? port : parsedUri.Port,
+          string.IsNullOrWhiteSpace(parsedUri.AbsolutePath) ? "/" : parsedUri.AbsolutePath, parsedUri.Query).Uri;
+        logger.Info(String.Format(Messages.INPUT_LEAPWORK_CONTROLLER_URL, controllerApiHttpAddress));
+        return controllerApiHttpAddress;
       }
-
-      // Use the plugin port when the provided URL does not already specify one.
-      if (!(uriBuilder.Uri.Authority ?? string.Empty).EndsWith(":" + uriBuilder.Uri.Port))
-        uriBuilder.Port = port;
-
-      // Keep a root path so API routes append consistently.
-      if (string.IsNullOrWhiteSpace(uriBuilder.Path))
-        uriBuilder.Path = "/";
-
-      return uriBuilder.Uri;
-    }
 
     private static string NormalizeUrlQuerySeparators(string input)
     {
@@ -745,7 +736,7 @@ namespace AzureDevOpsIntegrationConsole
     {
       Dictionary<Guid, string> schedulesIdTitleDictionary = new Dictionary<Guid, string>();
 
-      String scheduleListUri = BuildControllerApiUri(leapworkControllerApiHttpAddress, Messages.GET_ALL_AVAILABLE_SCHEDULES_PATH);
+      String scheduleListUri = BuildControllerApiUri(leapworkControllerApiHttpAddress, Messages.GET_ALL_AVAILABLE_SCHEDULES_URI);
 
       try
       {
@@ -881,10 +872,11 @@ namespace AzureDevOpsIntegrationConsole
     )
     {
 
-      String uri = BuildControllerApiUri(leapworkControllerApiHttpAddress, string.Format(Messages.RUN_SCHEDULE_PATH, scheduleId));
+      String uri = BuildControllerApiUri(leapworkControllerApiHttpAddress, string.Format(Messages.RUN_SCHEDULE_URI, scheduleId));
 
       try
       {
+        logger.Info(string.Format("Leapwork request URL: {0}", uri));
         using (HttpResponseMessage response = await client.PutAsync(uri, new StringContent(String.Empty))) //Send PUT request and launch schedule
         {
           int statusCode = (int)response.StatusCode;
@@ -971,7 +963,7 @@ namespace AzureDevOpsIntegrationConsole
 
     private static async Task<List<Guid>> GetRunRunItems(HttpClient client, Uri controllerApiHttpAddress, Guid runId)
     {
-      string uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.GET_RUN_ITEMS_IDS_PATH, runId));
+      string uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.GET_RUN_ITEMS_IDS_URI, runId));
 
       using (HttpResponseMessage response = await client.GetAsync(uri)) //Send PUT request and launch schedule
       {
@@ -1043,7 +1035,7 @@ namespace AzureDevOpsIntegrationConsole
 
     private static async Task<RunItem> GetRunItem(HttpClient client, Uri controllerApiHttpAddress, Guid runItemId, string scheduleName, bool doneStatusAsSuccess, SimpleLogger logger)
     {
-      String uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.GET_RUN_ITEM_PATH, runItemId));
+      String uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.GET_RUN_ITEM_URI, runItemId));
 
       using (HttpResponseMessage response = await client.GetAsync(uri))
       {
@@ -1142,7 +1134,7 @@ namespace AzureDevOpsIntegrationConsole
     private static async Task<Failure> GetRunItemKeyframes(HttpClient client, Uri controllerApiHttpAddress, Guid runItemId,
       RunItem runItem, string scheduleName, string agentTitle, SimpleLogger logger)
     {
-      String uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.GET_RUN_ITEM_KEYFRAMES_PATH, runItemId));
+      String uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.GET_RUN_ITEM_KEYFRAMES_URI, runItemId));
 
       using (HttpResponseMessage response = await client.GetAsync(uri))
       {
@@ -1249,7 +1241,7 @@ namespace AzureDevOpsIntegrationConsole
 
     private static async Task<string> GetRunStatus(HttpClient client, Uri controllerApiHttpAddress, Guid runId, SimpleLogger logger)
     {
-      String uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.GET_RUN_STATUS_PATH, runId));
+      String uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.GET_RUN_STATUS_URI, runId));
 
       using (HttpResponseMessage response = await client.GetAsync(uri))
       {
@@ -1307,7 +1299,7 @@ namespace AzureDevOpsIntegrationConsole
       bool isSuccessfullyStopped = false;
 
       logger.Error(String.Format(Messages.STOPPING_RUN, scheduleName, runId));
-      String uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.STOP_RUN_PATH, runId));
+      String uri = BuildControllerApiUri(controllerApiHttpAddress, string.Format(Messages.STOP_RUN_URI, runId));
 
       using (HttpResponseMessage response = await client.GetAsync(uri))
       {
@@ -1411,8 +1403,6 @@ namespace AzureDevOpsIntegrationConsole
       logger.Info(string.Format(Messages.INPUT_DELAY_VALUE, leapworkTime));
       logger.Info(string.Format(Messages.INPUT_DONE_VALUE, leapworkDoneStatus));
       Uri controllerApiHttpAddress = GetControllerApiBaseUri(leapworkHostname, leapworkPort, leapworkEnableHttpsProtocol, logger);
-      logger.Info(String.Format(Messages.INPUT_LEAPWORK_CONTROLLER_URL, controllerApiHttpAddress));
-
       String junitReportPath = GetJunitReportFilePath(leapworkReport); //checks if .xml in the path exists
       logger.Info(String.Format("Full Report file path: {0}", junitReportPath));
 

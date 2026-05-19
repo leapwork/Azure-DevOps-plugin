@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "leapwork",
     "name": "Leapwork",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "publisher": "leapwork",
     "description": "Run Leapwork schedules and get results in JUnit format",
     "public": true,
